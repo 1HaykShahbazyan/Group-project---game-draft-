@@ -1,0 +1,35 @@
+Fantasy Arena - Battle of Champions
+
+public class Character {
+    protected int health;
+    protected int mana;
+    protected String name;
+
+    public Character(String name, int health, int mana) {
+        this.name = name;
+        this.health = health;
+        this.mana = mana;
+
+public class Player extends Character {
+    private int playerId;
+
+    public Player(String name, int health, int mana, int playerId) {
+        super(name, health, mana);
+        this.playerId = playerId;
+    }
+
+public class Mage extends Character {
+}public class Warrior extends Character {
+public class Assassin extends Character {
+}
+
+// Strike class
+public class Strike {
+    protected int damage;
+    public Strike(int damage) {
+        this.damage = damage;
+    }public class ShortRangeStrike extends Strike {
+}
+
+
+}
