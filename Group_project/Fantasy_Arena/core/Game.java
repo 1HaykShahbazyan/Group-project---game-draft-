@@ -9,6 +9,7 @@ public class Game {
     private Player player2;
     private Champion[] team2;
     private Player currentPlayer;
+    private Champion[] currentTeam;
 
 
     public Game(int p1, Champion[] team1, int p2, Champion[] team2) throws InvalidCharacterChoiceException, UnfairMatchupException{
@@ -26,6 +27,7 @@ public class Game {
         
 
         currentPlayer = player1;
+        currentTeam = team1;
     }
 
     private Player selectCharacter(String playerName, int playerID) throws InvalidCharacterChoiceException{
@@ -67,10 +69,12 @@ public class Game {
 
     public void changeTurn(){
         currentPlayer = (currentPlayer == player1) ? player2 : player1;
+        currentTeam = (currentTeam == team1) ? team2 : team1;
     }
 
-    public void useSkill(Champion attacker, Champion target){
-        attacker.attack();
+    public void useSkill(Champion attacker, Champion target, int i){
+        
+        attacker.attack(i, target, currentTeam);
 
         target.ReceiveDamage(
             attacker.damagePhysical(),
@@ -82,33 +86,16 @@ public class Game {
         if(currentPlayer == player1){
             for(int i = 0; i < team2.length; i++){
                 if(team2[i].health <= 0){
-                    team2 = removeElement(team2, i);
+                    team2 = Champion.removeElement(team2, i);
                 }
             }
         } else{
             for(int i = 0; i < team1.length; i++){
                 if(team1[i].health <= 0){
-                    team1 = removeElement(team1, i);
+                    team1 = Champion.removeElement(team1, i);
                 }
             }
         }
-    }
-
-    public static Champion[] removeElement(Champion[] array, int indexToRemove) {
-        if (indexToRemove < 0 || indexToRemove >= array.length) {
-            return array;
-        }
-        
-        Champion[] newArray = new Champion[array.length - 1];
-    
-        int newIndex = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (i != indexToRemove) {
-                newArray[newIndex++] = array[i];
-            }
-        }
-    
-        return newArray;
     }
 
 }
