@@ -3,14 +3,32 @@ package Fantasy_Arena.core;
 
 // Tank class representing a tank character
 public class Tank extends Champion {
+
+    private double defence;
+
     public Tank(String name, int health, int mana) {
         super(name, health, mana);
+        defence = 1.5;
     }
 
     // Overriding the attack method for tanks
     @Override
-    public void attack() {
-        System.out.println(name + " absorbs enemy attacks.");
+    public void attack(int i, Champion target, Champion[] team) {
+        switch (i){
+            case 1:
+                System.out.println(name + " executes a regular strike.");  
+                break;
+            case 2:
+                if(mana < 30){
+                    break;
+                }
+                System.out.println(name + " protects allies");
+                for(int j = 0; j < team.length; j++){
+                    team[j].setDefence(team[j].getDefence() + 0.2);
+                }
+                mana -= 30;
+                break;
+        }
     }
 
     @Override
@@ -23,9 +41,7 @@ public class Tank extends Champion {
         return 0;
     }
 
-    @Override
-    public void ReceiveDamage(int physicalDamage, int magicalDamage){
-        this.health -= physicalDamage / 2;
-        this.mana -= magicalDamage;
+    public String toString(){
+        return "Tank " + name + " " + health + " " + mana;
     }
 }

@@ -2,14 +2,33 @@ package Fantasy_Arena.core;
 
 // Mage class representing a mage character
 public class Mage extends Champion {
+
+    private double defence;
+
     public Mage(String name, int health, int mana) {
         super(name, health, mana);
+        defence = 0.8;
     }
 
     // Overriding the attack method for mages
     @Override
-    public void attack() {
-        System.out.println(name + " casts a spell.");
+    public void attack(int i, Champion target, Champion[] team) {
+        switch (i){
+            case 1:
+                System.out.println(name + " executes a regular strike.");  
+                break;
+            case 2:
+                if(mana < 30){
+                    break;
+                }
+                System.out.println(name + " drains opponent's mana");
+                target.ReceiveDamage(0,60);
+                for(int j = 0; j < team.length; j++){
+                    team[j].ReceiveDamage(0, -(60/team.length));
+                }
+                mana -= 30;
+                break;
+        }
     }
 
     @Override
@@ -20,5 +39,9 @@ public class Mage extends Champion {
     @Override
     public int damageMagical() {
         return 20;
+    }
+
+    public String toString(){
+        return "Mage " + name + " " + health + " " + mana;
     }
 }

@@ -2,14 +2,30 @@ package Fantasy_Arena.core;
 
 // Marksman class representing a marksman character
 public class Marksman extends Champion {
+
+    private double defence;
+
     public Marksman(String name, int health, int mana) {
         super(name, health, mana);
+        defence = 0.75;
     }
 
     // Overriding the attack method for marksmen
     @Override
-    public void attack() {
-        System.out.println(name + " shoots with precision.");
+    public void attack(int i, Champion target, Champion[] team) {
+        switch (i){
+            case 1:
+                System.out.println(name + " shoots with precision.");  
+                break;
+            case 2:
+                if(mana < 30){
+                    break;
+                }
+                System.out.println(name + " shatters opponent's armor");
+                target.setDefence(target.getDefence()/2);
+                mana -= 30;
+                break;
+        }
     }
 
     @Override
@@ -20,5 +36,9 @@ public class Marksman extends Champion {
     @Override
     public int damageMagical() {
         return 0;
+    }
+
+    public String toString(){
+        return "Marksman " + name + " " + health + " " + mana;
     }
 }
