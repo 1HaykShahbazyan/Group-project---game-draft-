@@ -1,0 +1,22 @@
+3
+2
+Tank Ironclad 100 50
+Mage MysticFlame 90 70
+Support Shadowcaster 80 90
+Warrior Warblade 85 60
+3
+Brawler Boulderfist 95 45
+Assassin Shadowblade 75 55
+Marksman EagleEye 85 75
+Tank Titan 110 40
+Warrior Thunderclap 95 60
+Mage Moonfire 80 85
+4
+Support Sunburst 75 70
+Warrior Windblade 90 55
+Brawler Bloodthorn 85 65
+Marksman Ravencall 70 75
+Assassin Nightshade 80 80
+Tank Earthguard 100 50
+Mage Frostspark 85 60
+Support Stormcaller 90 70
