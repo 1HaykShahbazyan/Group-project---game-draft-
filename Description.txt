@@ -1,17 +1,11 @@
-Welcome to the Fantasy Arena project presentation. In this session, we'll delve into the intricacies of our Java-based simulation of strategic battles inspired by popular digital card games. Let's explore the key classes and components that bring this exciting gameplay experience to life.
+Fantasy Arena is a Java-based simulation of strategic battles inspired by popular digital card games. It encompasses several key classes and components that work together to create an immersive gameplay experience.
 
-Game Class: The Game class serves as the core engine of Fantasy Arena, managing the flow of gameplay and interactions between players and champions. It features methods such as changeTurn() to switch between players' turns, useSkill() to execute champion abilities, and removeFallenChampions() to handle defeated champions. The constructor initializes player teams and ensures fair matchups, throwing exceptions such as InvalidCharacterChoiceException and UnfairMatchupException if necessary.
+The Game class serves as the core engine, managing gameplay flow and interactions between players and champions. Methods like changeTurn() and useSkill() control turn-based actions, while removeFallenChampions() handles defeated champions. The constructor ensures fair matchups and throws exceptions like InvalidCharacterChoiceException and UnfairMatchupException when necessary.
 
-Player Class: Representing participants in the arena, the Player class encapsulates player information and their chosen champions. It provides methods such as getName() to retrieve player names and getChampion() to access the active champion for each player.
+Players are represented by the Player class, which encapsulates player information and their chosen champions. Champion classes, extending the abstract Champion class and implementing the Attack interface, define combat roles and abilities. Attributes like health and mana are managed dynamically during battles.
 
-Champion Classes: The cornerstone of Fantasy Arena, champion classes embody various combat roles and abilities. Each champion class extends the Champion abstract class and implements the Attack interface. Methods like attack() in subclasses such as Assassin, Brawler, Mage, Marksman, Support, Tank, and Warrior define specific actions each champion can take during battles. Additionally, champions have attributes like health, mana, and defense, which are managed and updated dynamically during gameplay.
+The Attack interface standardizes combat mechanics, providing methods for dealing physical and magical damage. GameConsole acts as the user interface, allowing players to interact with the game environment by selecting characters and executing skills.
 
-Attack Interface: The Attack interface defines standard methods for dealing physical and magical damage. Implemented by champion subclasses, this interface ensures uniformity in combat mechanics across different champion types. Methods like damagePhysical() and damageMagical() provide concrete implementations for calculating damage based on champion attributes and abilities.
+The LevelDatabase offers various battlegrounds, managing information about different levels and champion configurations. Players can choose their preferred battlefield for combat.
 
-GameConsole Class: Acting as the user interface, the GameConsole class enables players to interact with the game environment. It presents options for selecting characters and executing skills during battles. The play() method orchestrates player input, team selection, level selection, and skill execution, facilitating a seamless gaming experience.
-
-LevelDatabase Class: The LevelDatabase class offers players a variety of battlegrounds to explore. It manages information about different levels, including the number of teams and champion configurations. Methods like printDatabase() display available levels, allowing players to choose their preferred battlefield for combat.
-
-Together, these classes and components form the foundation of Fantasy Arena, providing players with an immersive and strategic gaming experience. From selecting champions to engaging in intense battles, Fantasy Arena offers a dynamic gameplay experience that promises hours of excitement and challenge.
-
-Thank you for joining us for this detailed exploration of Fantasy Arena. We're excited to bring this thrilling gaming experience to life, and we look forward to your participation in the arena!
+Overall, Fantasy Arena offers an immersive and strategic gaming experience, from selecting champions to engaging in intense battles. With its dynamic gameplay and variety of levels, it promises hours of excitement and challenge for players.
