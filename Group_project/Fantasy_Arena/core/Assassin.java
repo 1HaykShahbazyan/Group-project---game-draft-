@@ -5,6 +5,10 @@ public class Assassin extends Champion{
 
     private double defence;
 
+    public Assassin(){
+        super("Assassin", 80, 60);
+        defence = 1;
+    }
     public Assassin(String name, int health, int mana) {
         super(name, health, mana);
         defence = 1;
@@ -15,7 +19,7 @@ public class Assassin extends Champion{
     public void attack(int i, Champion target, Champion[] team) {
         switch (i){
             case 1:
-                System.out.println(name + " executes a regular strike.");  
+                System.out.println(name + " executes a regular strike."); 
                 break;
             case 2:
                 if(mana < 30){
@@ -40,6 +44,11 @@ public class Assassin extends Champion{
     @Override
     public int damageMagical() {
         return 5;
+    }
+
+    @Override
+    public Champion copy() {
+        return new Assassin(this.getName(), (int) this.getHp(), (int) this.getMp());
     }
 
     public String toString(){

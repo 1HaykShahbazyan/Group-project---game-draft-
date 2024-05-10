@@ -4,6 +4,10 @@ public class Support extends Champion {
 
     private double defence;
 
+    public Support(){
+        super("Support", 90, 70);
+        defence = 0.7;
+    }
     public Support(String name, int health, int mana) {
         super(name, health, mana);
         defence = 0.7;
@@ -14,7 +18,7 @@ public class Support extends Champion {
     public void attack(int i, Champion target, Champion[] team) {
         switch (i){
             case 1:
-                System.out.println(name + " executes a regular strike.");  
+                System.out.println(name + " executes a regular strike."); 
                 break;
             case 2:
                 if(mana < 30){
@@ -37,6 +41,11 @@ public class Support extends Champion {
     @Override
     public int damageMagical() {
         return 5;
+    }
+
+    @Override
+    public Champion copy() {
+        return new Support(this.getName(), (int) this.getHp(), (int) this.getMp());
     }
 
     public String toString(){

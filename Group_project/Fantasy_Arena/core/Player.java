@@ -1,6 +1,6 @@
 package Fantasy_Arena.core;
 
-// Player class representing a player character
+// Player class representing a player
 public class Player {
     private String name;
     private Champion champion;

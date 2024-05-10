@@ -14,6 +14,13 @@ public abstract class Champion implements Attack{
         defence = 1;
     }
 
+    public Champion (Champion champion){
+        this.name = champion.getName();
+        this.health = champion.getHp();
+        this.mana = champion.getMp();
+        this.defence = champion.getDefence();
+    }
+
     public String getName(){
         return this.name;
     }
@@ -45,7 +52,7 @@ public abstract class Champion implements Attack{
 
     public void ReceiveDamage(int physicalDamage, int magicalDamage){
         this.health -= physicalDamage/defence;
-        this.mana -= (magicalDamage < mana) ? magicalDamage : mana;
+        this.mana -= (magicalDamage < mana) ? magicalDamage : this.mana;
     }
 
     public abstract String toString();
@@ -75,6 +82,8 @@ public abstract class Champion implements Attack{
             return null;
         }         
     }
+
+    public abstract Champion copy();
 
     public static Champion[] removeElement(Champion[] array, int indexToRemove) {
         if (indexToRemove < 0 || indexToRemove >= array.length) {

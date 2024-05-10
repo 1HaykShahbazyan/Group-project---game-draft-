@@ -5,6 +5,10 @@ public class Mage extends Champion {
 
     private double defence;
 
+    public Mage(){
+        super("Mage", 70, 90);
+        defence = 0.8;
+    }
     public Mage(String name, int health, int mana) {
         super(name, health, mana);
         defence = 0.8;
@@ -39,6 +43,11 @@ public class Mage extends Champion {
     @Override
     public int damageMagical() {
         return 20;
+    }
+
+    @Override
+    public Champion copy() {
+        return new Mage(this.getName(), (int) this.getHp(), (int) this.getMp());
     }
 
     public String toString(){
