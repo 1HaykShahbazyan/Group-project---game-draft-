@@ -3,6 +3,7 @@ package Fantasy_Arena.cli;
 import Fantasy_Arena.core.*;
 import Fantasy_Arena.levels.LevelDatabase;
 import java.util.Scanner;
+
 import Fantasy_Arena.core.exceptions.*;
 
 
@@ -13,8 +14,7 @@ public class GameConsole {
     public GameConsole(){
         database = new LevelDatabase();
     }
-
-    public void play() {
+    public void run(){
         Scanner sc = new Scanner(System.in);
         int p1,p2;
 
@@ -25,6 +25,15 @@ public class GameConsole {
         System.out.print("Player 2: ");
         System.out.print("Enter your choice: ");
         p2 = sc.nextInt();
+        Champion[] allChampions = {
+            new Warrior(),
+            new Mage(),
+            new Assassin(),
+            new Marksman(),
+            new Tank(),
+            new Support(),
+            new Brawler()
+        };
 
         System.out.println("Choose your level");
         database.printDatabase();
@@ -32,15 +41,22 @@ public class GameConsole {
 
         Champion[] team1 = database.getTeams(lvlnumber)[0];
         Champion[] team2 = database.getTeams(lvlnumber)[1];
+        Player player1 = new Player("Player1", allChampions[p1]);
+        Player player2 = new Player("Player2", allChampions[p2]);
 
         try {
-            this.game = new Game(p1,team1,p2,team2);
+            this.game = new Game(player1,team1,player2,team2);
         } catch (InvalidCharacterChoiceException | UnfairMatchupException e) {
             System.err.println("Error: " + e.getMessage());
              return;
         }
         
+            play();
         
+    }
+
+    public void play() {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Let the battle begin!");
         while (true) {
 
@@ -61,7 +77,7 @@ public class GameConsole {
             if(game.getTargetTeam().length != 0){
             for(int i = 0; i <= currentTeam.length; i++){
                 for(int j = 0; j < targetTeam.length; j++){
-                    System.out.println(j+1 + ". " + targetTeam[j].getName() + "(HP: " + targetTeam[j].getHp() + ", MP: " + (int) targetTeam[j].getMp() + ")");
+                    System.out.println(j+1 + ". " + targetTeam[j].getName() + "(HP: " + (int) targetTeam[j].getHp() + ", MP: " + (int) targetTeam[j].getMp() + ")");
                 }
                 
                 int targetNumber = sc.nextInt()-1;
@@ -84,11 +100,11 @@ public class GameConsole {
                 } else{
                     game.useSkill(currentTeam[i], target, attackId);
                 }
-                game.removeFallenCampions();
+                game.removeFallenChampions();
             }
             } else{
                 for(int i = 0; i <= currentTeam.length; i++){
-                    System.out.println(1 + ". " + targetPlayer.getName() + "(HP: " + targetPlayer.getChampion().getHp() + ", MP: " + (int) targetPlayer.getChampion().getMp() + ")");
+                    System.out.println(1 + ". " + targetPlayer.getName() + "(HP: " + (int) targetPlayer.getChampion().getHp() + ", MP: " + (int) targetPlayer.getChampion().getMp() + ")");
 
                     int targetNumber = sc.nextInt()-1;
                     Champion target;
@@ -110,7 +126,7 @@ public class GameConsole {
                     } else{
                         game.useSkill(currentTeam[i], target, attackId);
                     }
-                    game.removeFallenCampions();
+                    game.removeFallenChampions();
                 }
 
             }

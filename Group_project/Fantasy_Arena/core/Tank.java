@@ -6,6 +6,10 @@ public class Tank extends Champion {
 
     private double defence;
 
+    public Tank(){
+        super("Tank", 180, 20);
+        defence = 1.5;
+    }
     public Tank(String name, int health, int mana) {
         super(name, health, mana);
         defence = 1.5;
@@ -16,7 +20,7 @@ public class Tank extends Champion {
     public void attack(int i, Champion target, Champion[] team) {
         switch (i){
             case 1:
-                System.out.println(name + " executes a regular strike.");  
+                System.out.println(name + " executes a regular strike.");
                 break;
             case 2:
                 if(mana < 30){
@@ -39,6 +43,11 @@ public class Tank extends Champion {
     @Override
     public int damageMagical() {
         return 0;
+    }
+
+    @Override
+    public Champion copy() {
+        return new Tank(this.getName(), (int) this.getHp(), (int) this.getMp());
     }
 
     public String toString(){

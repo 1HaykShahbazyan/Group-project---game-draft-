@@ -5,6 +5,10 @@ package Fantasy_Arena.core;
 public class Warrior extends Champion {
     private double defence;
 
+    public Warrior(){
+        super("Warrior", 100, 60);
+        defence = 1.25;
+    }
     public Warrior(String name, int health, int mana) {
         super(name, health, mana);
         defence = 1.25;
@@ -39,6 +43,11 @@ public class Warrior extends Champion {
     @Override
     public int damageMagical() {
         return 0;
+    }
+
+    @Override
+    public Champion copy() {
+        return new Warrior(this.getName(), (int) this.getHp(), (int) this.getMp());
     }
 
     public String toString(){

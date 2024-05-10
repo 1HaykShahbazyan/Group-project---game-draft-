@@ -1,5 +1,7 @@
 package Fantasy_Arena.core;
 
+import java.util.Arrays;
+
 import Fantasy_Arena.core.exceptions.*;
 
 public class Game {
@@ -12,11 +14,11 @@ public class Game {
     private Champion[] currentTeam;
 
 
-    public Game(int p1, Champion[] team1, int p2, Champion[] team2) throws InvalidCharacterChoiceException, UnfairMatchupException{
+    public Game(Player player1, Champion[] team1, Player player2, Champion[] team2) throws InvalidCharacterChoiceException, UnfairMatchupException{
 
-        player1 = selectCharacter("Player 1", p1);
+        this.player1 = player1;
         
-        player2 = selectCharacter("Player 2", p2);
+        this.player2 = player2;
         
         if(team1.length == team2.length){
             this.team1 = team1;
@@ -30,29 +32,6 @@ public class Game {
         currentTeam = team1;
     }
 
-    private Player selectCharacter(String playerName, int playerID) throws InvalidCharacterChoiceException{
-      
-        
-        switch (playerID) {
-            case 1:
-                return new Player(playerName, new Warrior(playerName, 100, 50));
-            case 2:
-                return new Player(playerName, new Mage(playerName, 80, 100));
-            case 3:
-                return new Player(playerName, new Assassin(playerName, 90, 70));
-            case 4:
-                return new Player(playerName, new Marksman(playerName, 80, 80));
-            case 5:
-                return new Player(playerName, new Tank(playerName, 120, 40));
-            case 6:
-                return new Player(playerName, new Support(playerName, 70, 120));
-            case 7:
-                return new Player(playerName, new Brawler(playerName, 110, 60));
-            default:
-                throw new InvalidCharacterChoiceException();
-        }
-    }
-
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
@@ -61,19 +40,27 @@ public class Game {
     }
 
     public Champion[] getCurrentTeam() {
-        return (currentPlayer == player1) ? team1 : team2;
+        return currentTeam;
     }
     public Champion[] getTargetTeam(){
-        return (currentPlayer == player1) ? team2 : team1;
+        return (currentTeam == team1) ? team2 : team1;
     }
 
     public void changeTurn(){
         currentPlayer = (currentPlayer == player1) ? player2 : player1;
         currentTeam = (currentTeam == team1) ? team2 : team1;
+
+        for(int i = 0; i < team1.length; i++){
+            team1[i].mana += 10;
+        }
+        for(int i = 0; i < team2.length; i++){
+            team2[i].mana += 10;
+        }
+        player1.getChampion().mana += 10;
+        player2.getChampion().mana += 10;
     }
 
     public void useSkill(Champion attacker, Champion target, int i){
-        
         attacker.attack(i, target, currentTeam);
 
         target.ReceiveDamage(
@@ -82,7 +69,15 @@ public class Game {
         );
     }
 
-    public void removeFallenCampions(){
+    public boolean isDifferentTeam(Champion champion1, Champion champion2) {
+        if (Arrays.asList(team1).contains(champion1) || player1.getChampion() == champion1) {
+            return !(Arrays.asList(team1).contains(champion2) || player1.getChampion() == champion2);
+        } else {
+            return !(Arrays.asList(team2).contains(champion2) || player2.getChampion() == champion2);
+        }
+    }
+
+    public void removeFallenChampions(){
         if(currentPlayer == player1){
             for(int i = 0; i < team2.length; i++){
                 if(team2[i].health <= 0){
